@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 21:05:30 by emurky            #+#    #+#             */
-/*   Updated: 2021/09/17 01:06:09 by emurky           ###   ########.fr       */
+/*   Updated: 2021/09/17 01:12:35 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,6 @@ void				ft_putendl(char *s);
 void				ft_putnbr(int n);
 size_t				ft_nbrlen(long int n);
 int					ft_charin(char c, const char *str);
-
-/*
-**					get_next_line
-*/
-
-# define BUFFER_SIZE 42
-
-int					get_next_line(int fd, char **line);
 
 /*
 **					ft_printf

@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 18:08:11 by emurky            #+#    #+#              #
-#    Updated: 2021/09/14 18:35:09 by emurky           ###   ########.fr        #
+#    Updated: 2021/09/17 01:12:47 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,7 @@ SRCS			= \
 				ft_putendl_bonus.c \
 				ft_putnbr_bonus.c \
 				ft_nbrlen_bonus.c \
-				ft_charin_bonus.c \
-				get_next_line.c
+				ft_charin_bonus.c
 
 SRCS		+=	$(addprefix $(PRINTF_DIR)/, \
 					ft_printf.c \

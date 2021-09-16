@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 02:36:27 by emurky            #+#    #+#             */
-/*   Updated: 2021/09/14 17:46:39 by emurky           ###   ########.fr       */
+/*   Updated: 2021/09/17 00:02:22 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_putchar(wchar_t c)
 {
-	write(1, &c, 1);
+	write(1, &c, sizeof(wchar_t));
 }

@@ -3,26 +3,37 @@ OBJSDIR				= ./objs
 DEPSDIR				= ./deps
 
 # SRCS				= $(addprefix $(SRCSDIR)/, 
-SRCS				= $(client.c \
-						server.c )
-OBJS				= $(SRCS:.c=.o)
-DEPS				= $(SRCS:.c=.d)
 
-NAME				= test
+SERVER				= server
+S_SRCS				= server.c
+S_OBJS				= $(S_SRCS:.c=.o)
+S_DEPS				= $(S_SRCS:.c=.d)
+
+CLIENT				= client
+C_SRCS				= client.c
+C_OBJS				= $(C_SRCS:.c=.o)
+C_DEPS				= $(C_SRCS:.c=.d)
+
+NAME				= minitalk
 
 CC 					= gcc
 RM 					= rm -f
 CFLAGS				= -Wall -Wextra -Werror -O2 #-g -fsanitize=address
-CPPFLAGS			= -MMD -I. -I./includes
+CPPFLAGS			= -MMD -I. -I./libft
+LIBS				= -L./libft -lft
 
-LIBS				= \
-						-L./libft -lft
 
 all:				$(NAME)
 
-$(NAME):			$(OBJS)
+$(SERVER):			$(S_OBJS)
 					$(MAKE) -C ./libft -j4
-#					$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+					$(CC) $(CFLAGS) $(S_OBJS) $(LIBS) -o $(SERVER)
+
+$(CLIENT):			$(C_OBJS)
+					$(MAKE) -C ./libft -j4
+					$(CC) $(CFLAGS) $(C_OBJS) $(LIBS) -o $(CLIENT)
+
+$(NAME):			$(SERVER) $(CLIENT)
 
 bonus:				all
 
@@ -30,11 +41,11 @@ bonus:				all
 
 clean:
 					$(MAKE) clean -C ./libft
-					$(RM) $(OBJS) $(DEPS)
+					$(RM) $(S_OBJS) $(S_DEPS) $(C_OBJS) $(C_DEPS)
 
 fclean:				clean
 					$(RM) ./libft/libft.a
-					$(RM) $(NAME)
+					$(RM) $(SERVER) $(CLIENT)
 
 re:					fclean all
 
@@ -54,7 +65,7 @@ libft_re:
 # ******************************************** #
 
 sc:
-					rm -rf *.o *.a */*.o */*.a */*.d *.d 
+	rm -rf *.o *.a */*.o */*.a */*/*.o */*/*.a */*.d *.d */*.d */*/*.d 'server '* 'client '* server client
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \

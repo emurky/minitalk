@@ -18,7 +18,7 @@ NAME				= minitalk
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror -O2 #-g -fsanitize=address
+CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address
 CPPFLAGS			= -MMD -I. -I./libft
 LIBS				= -L./libft -lft
 
@@ -37,7 +37,7 @@ $(NAME):			$(SERVER) $(CLIENT)
 
 bonus:				all
 
--include			$(DEPS)
+-include			$(S_DEPS) $(C_DEPS)
 
 clean:
 					$(MAKE) clean -C ./libft

@@ -3,5 +3,8 @@
 
 # include "libft.h"
 # include <signal.h>
+# include <stdbool.h>
+
+# define	CHAR_SIZE	0b10000000
 
 #endif

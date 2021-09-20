@@ -18,7 +18,7 @@ NAME				= minitalk
 
 CC 					= gcc
 RM 					= rm -f
-CFLAGS				= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS				= -Wall -Wextra -Werror -g -fsanitize=address
 CPPFLAGS			= -MMD -I. -I./libft
 LIBS				= -L./libft -lft
 

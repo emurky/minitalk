@@ -19,17 +19,15 @@ int	string_isdigit(char *str)
 
 int	main(int argc, char **argv)
 {
-	char				*message;
-	pid_t				server_pid;
-	int					bits = CHAR_SIZE;
-
+	char			*message;
+	pid_t			server_pid;
+	int				bits = CHAR_SIZE;
 
 	if (!(argc == 3 && string_isdigit(argv[1])))
 		my_exit(EXIT_FAILURE, ERR_WRARG);
 
 	server_pid = ft_atoi(argv[1]);
 	message = argv[2];
-
 
 	while (*message)
 	{
@@ -38,10 +36,12 @@ int	main(int argc, char **argv)
 		{
 			if (*message & bits) {
 				kill(server_pid, SIGUSR1);
+				// ft_putchar('1');
 				usleep(50);
 			}
 			else {
 				kill(server_pid, SIGUSR2);
+				// ft_putchar('0');
 				usleep(50);
 			}
 			bits >>= 1;
@@ -56,7 +56,9 @@ int	main(int argc, char **argv)
 		bits >>= 1;
 	}
 
-	ft_printf("Hi from client, my PID is %d\n", getpid());
+	ft_putstr("Hi from client, my PID is ");
+	ft_putnbr(getpid());
+	ft_putchar('\n');
 
 	return (0);
 }

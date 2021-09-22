@@ -6,7 +6,7 @@
 #    By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/02 18:08:11 by emurky            #+#    #+#              #
-#    Updated: 2021/09/17 01:12:47 by emurky           ###   ########.fr        #
+#    Updated: 2021/09/22 05:18:01 by emurky           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ NAME 			= libft.a
 CC				= gcc
 RM				= rm -f
 AR				= ar -rcs
-CFLAGS			= -Wall -Wextra -Werror -I. -O2 #-g -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -I. -g -fsanitize=address
 CPPFLAGS		= -MMD
 
 all:			$(NAME)

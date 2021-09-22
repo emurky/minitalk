@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 
 
 	if (!(argc == 3 && string_isdigit(argv[1])))
-		my_exit(EXIT_FAILURE, "Wrong arguments\nShould be \"./client pid message\"");
+		my_exit(EXIT_FAILURE, ERR_WRARG);
 
 	server_pid = ft_atoi(argv[1]);
 	message = argv[2];
@@ -37,18 +37,15 @@ int	main(int argc, char **argv)
 		while (bits)
 		{
 			if (*message & bits) {
-				// ft_putnbr(1);
 				kill(server_pid, SIGUSR1);
 				usleep(50);
 			}
 			else {
 				kill(server_pid, SIGUSR2);
 				usleep(50);
-				// ft_putnbr(0);
 			}
 			bits >>= 1;
 		}
-		// ft_putstr("|");
 		message++;
 	}
 	bits = CHAR_SIZE;
@@ -59,13 +56,6 @@ int	main(int argc, char **argv)
 		bits >>= 1;
 	}
 
-	// ft_putchar('\n');
-	// for (int i = 0; argv[2][i]; i++)
-	// {
-	// 	ft_printf("%08b", argv[2][i]);
-	// 	ft_putstr("|");
-	// }
-	// ft_putchar('\n');
 	ft_printf("Hi from client, my PID is %d\n", getpid());
 
 	return (0);

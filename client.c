@@ -20,6 +20,20 @@ int	string_isdigit(char *str)
 	return (true);
 }
 
+void	send_null(pid_t server_pid)
+{
+	static int		bits = 8;
+
+	if (bits)
+	{
+		kill(server_pid, SIGUSR2);
+		bits--;
+	}
+	if (!bits)
+	{
+		my_exit(EXIT_SUCCESS, "Message was successfully sent");
+	}
+}
 
 void	send_message(char *str, pid_t pid)
 {
@@ -31,10 +45,18 @@ void	send_message(char *str, pid_t pid)
 		message = str; }
 	if (pid)
 		server_pid = pid;
+
+	if (!bits)
+	{
+		message++;
+		// printf("%s\n", message);
+		bits = 8;
+	}
+
 	if (*message)
 	{
-		if (bits)
-		{
+		// if (bits)
+		// {
 			if (*message & (1 << (bits - 1)))
 			{
 				if (kill(server_pid, SIGUSR1) < 0)
@@ -52,21 +74,22 @@ void	send_message(char *str, pid_t pid)
 				// usleep(50);
 			}
 			bits--;
-		}
-		if (!bits)
-		{
-			message++;
-			// printf("%s\n", message);
-			bits = 8;
-		}
+		// }
+		// if (!bits)
+		// {
+		// 	message++;
+		// 	// printf("%s\n", message);
+		// 	bits = 8;
+		// }
 	}
 	else
 	{
-		kill(server_pid, SIGUSR2);
+		send_null(server_pid);
+		// kill(server_pid, SIGUSR2);
 		// usleep(50);
-		bits--;
+		// bits--;
 	}
-	printf("%d bits\n", bits);
+	// printf("%d bits\n", bits);
 }
 
 void	signal_handler(int sig, siginfo_t *siginfo, void *context)
@@ -75,8 +98,8 @@ void	signal_handler(int sig, siginfo_t *siginfo, void *context)
 	(void)siginfo;
 	if (sig == SIGUSR1)
 		send_message(NULL, 0);
-	else if (sig == SIGUSR2)
-		exit(0);
+	// else if (sig == SIGUSR2)
+	// 	exit(0);
 }
 
 int	main(int argc, char **argv)

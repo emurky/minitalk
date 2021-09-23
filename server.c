@@ -1,8 +1,16 @@
-#include "minitalk.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/24 02:23:18 by emurky            #+#    #+#             */
+/*   Updated: 2021/09/24 02:30:10 by emurky           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include <fcntl.h>
-// #include <stdio.h>
-int	fd = 1;
+#include "minitalk.h"
 
 static void	my_exit(int status, char *exit_str, pid_t client_pid)
 {
@@ -16,16 +24,16 @@ static int	buffer_handler(char *buffer, int *index, int *client_pid)
 {
 	if (buffer[*index] == '\0')
 	{
-		write(fd, buffer, ft_strlen(buffer));
+		write(1, buffer, ft_strlen(buffer));
 		*client_pid = 0;
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', 1);
 		return (1);
 	}
 	else
 		(*index)++;
 	if (*index == BUFFER_SIZE)
 	{
-		write(fd, buffer, BUFFER_SIZE);
+		write(1, buffer, BUFFER_SIZE);
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 		*index = 0;
 	}
@@ -64,8 +72,6 @@ int	main(void)
 	pid_t				pid;
 	struct sigaction	sa;
 
-// int fdd = open("test.txt", O_RDWR | O_CREAT | O_TRUNC);
-// fd = fdd;
 	sa.sa_sigaction = signal_handler;
 	sa.sa_flags = SA_SIGINFO;
 	pid = getpid();

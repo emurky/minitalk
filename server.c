@@ -1,9 +1,14 @@
 #include "minitalk.h"
 
+#include <fcntl.h>
+#include <stdio.h>
+int	fd = 1;
+
+
+
 void	signal_handler(int sig, siginfo_t *siginfo, void *context)
 {
 	(void)context;
-	(void)siginfo;
 	static int		ch = 0;
 	static int		bits = 8;
 	static char		buffer[BUFFER_SIZE + 1];
@@ -35,26 +40,37 @@ void	signal_handler(int sig, siginfo_t *siginfo, void *context)
 	}
 	if (!bits)
 	{
-
-		buffer[index] = ch;
-		index++;
 		if (ch == '\0')
 		{
-			write(1, buffer, ft_strlen(buffer));
+			write(fd, buffer, ft_strlen(buffer));
+			// printf("tut\n");
 			first_launch = false;
-			ft_putchar('\n');
+			ft_putchar_fd('\n', fd);
+			printf("%d char\n%d index\n%d bits\n%d first launch\n", ch, index, bits, first_launch);
 		}
+		else
+		{
+			buffer[index] = ch;
+			index++;
+		}
+
 		// write(1, &ch, 1);
+
 		ch = 0;
 		bits = 8;
 
 		if (index == BUFFER_SIZE)
 		{
-			write(1, buffer, BUFFER_SIZE);
+			write(fd, buffer, BUFFER_SIZE);
 			ft_bzero(buffer, sizeof(buffer));
 			index = 0;
 		}
 	}
+	// printf("%d index\n", index);
+	if (first_launch == false)
+		kill(siginfo->si_pid, SIGUSR2);
+	kill(siginfo->si_pid, SIGUSR1);
+	// printf("%d char\n%d index\n%d bits\n%d first launch\n", ch, index, bits, first_launch);
 }
 
 int	main(void)
@@ -62,12 +78,14 @@ int	main(void)
 	pid_t				pid;
 	struct sigaction	sa;
 
+// int fdd = open("output.txt", O_RDWR | O_CREAT | O_TRUNC);
+// fd = fdd;
 	sa.sa_sigaction = signal_handler;
 	sa.sa_flags = SA_SIGINFO;
 	pid = getpid();
-	ft_putstr("Hi from server, my PID is ");
-	ft_putnbr(pid);
-	ft_putchar('\n');
+	ft_putstr_fd("Hi from server, my PID is ", 1);
+	ft_putnbr_fd(pid, 1);
+	ft_putchar_fd('\n', 1);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (true)

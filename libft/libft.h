@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 21:05:30 by emurky            #+#    #+#             */
-/*   Updated: 2021/09/17 01:12:35 by emurky           ###   ########.fr       */
+/*   Updated: 2021/09/23 01:42:55 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
 char				*ft_itoa(int n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-void				ft_putchar_fd(wchar_t c, int fd);
+void				ft_putchar_fd(int c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(long int n, int fd);
@@ -90,7 +90,7 @@ t_list				*ft_lstmap(t_list *lst,
 
 int					ft_isspace(int c);
 int					ft_isblank(int c);
-void				ft_putchar(wchar_t c);
+void				ft_putchar(int c);
 void				ft_putstr(char *s);
 void				ft_putendl(char *s);
 void				ft_putnbr(int n);

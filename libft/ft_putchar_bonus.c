@@ -6,13 +6,13 @@
 /*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/14 02:36:27 by emurky            #+#    #+#             */
-/*   Updated: 2021/09/17 00:02:22 by emurky           ###   ########.fr       */
+/*   Updated: 2021/09/22 23:22:58 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar(wchar_t c)
+void	ft_putchar(int c)
 {
-	write(1, &c, sizeof(wchar_t));
+	write(1, &c, 1);
 }

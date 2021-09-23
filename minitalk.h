@@ -6,9 +6,10 @@
 # include <stdbool.h>
 
 # define	CHAR_SIZE	0b10000000
-# define	BUFFER_SIZE	256
+# define	BUFFER_SIZE	10
 
 # define	ERR_WRARG	"Wrong arguments\nShould be \"./client PID message\""
 # define	ERR_SERV	"Cannot connect with server"
+# define	ERR_SIG		"Could not send a signal"
 
 #endif

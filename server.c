@@ -4,7 +4,7 @@
 // #include <stdio.h>
 int	fd = 1;
 
-void	my_exit(int status, char *exit_str, pid_t client_pid)
+static void	my_exit(int status, char *exit_str, pid_t client_pid)
 {
 	ft_putendl_fd(exit_str, 1);
 	if (status == EXIT_FAILURE && client_pid)
@@ -12,45 +12,48 @@ void	my_exit(int status, char *exit_str, pid_t client_pid)
 	exit(status);
 }
 
-void	signal_handler(int sig, siginfo_t *siginfo, void *context)
+static int	buffer_handler(char *buffer, int *index, int *client_pid)
+{
+	if (buffer[*index] == '\0')
+	{
+		write(fd, buffer, ft_strlen(buffer));
+		*client_pid = 0;
+		ft_putchar_fd('\n', fd);
+		return (1);
+	}
+	else
+		(*index)++;
+	if (*index == BUFFER_SIZE)
+	{
+		write(fd, buffer, BUFFER_SIZE);
+		ft_bzero(buffer, BUFFER_SIZE + 1);
+		*index = 0;
+	}
+	return (0);
+}
+
+static void	signal_handler(int sig, siginfo_t *siginfo, void *context)
 {
 	static int		client_pid = 0;
-	static char		ch = 0;
 	static int		bits = 8;
 	static char		buffer[BUFFER_SIZE + 1];
 	static int		index = 0;
-	static int		first_launch = false;
 
 	(void)context;
-	if (!first_launch)
+	if (!client_pid)
 	{
-		first_launch = true;
 		index = 0;
 		client_pid = siginfo->si_pid;
-		ft_bzero(buffer, sizeof(buffer));
+		ft_bzero(buffer, BUFFER_SIZE + 1);
 	}
 	if (sig == SIGUSR1)
-		ch |= 1 << (bits - 1);
+		buffer[index] |= 1 << (bits - 1);
 	bits--;
 	if (!bits)
 	{
 		bits = 8;
-		if (ch == '\0')
-		{
-			write(fd, buffer, ft_strlen(buffer));
-			first_launch = false;
-			ft_putchar_fd('\n', fd);
+		if (buffer_handler(buffer, &index, &client_pid))
 			return ;
-		}
-		else
-			buffer[index++] = ch;
-		ch = 0;
-		if (index == BUFFER_SIZE)
-		{
-			write(fd, buffer, BUFFER_SIZE);
-			ft_bzero(buffer, sizeof(buffer));
-			index = 0;
-		}
 	}
 	if (kill(client_pid, SIGUSR1) < 0)
 		my_exit(EXIT_FAILURE, ERR_SENDSIG, client_pid);

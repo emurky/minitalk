@@ -6,7 +6,7 @@
 /*   By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 21:05:30 by emurky            #+#    #+#             */
-/*   Updated: 2021/09/23 01:42:55 by emurky           ###   ########.fr       */
+/*   Updated: 2021/09/24 01:25:28 by emurky           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,53 +96,5 @@ void				ft_putendl(char *s);
 void				ft_putnbr(int n);
 size_t				ft_nbrlen(long int n);
 int					ft_charin(char c, const char *str);
-
-/*
-**					ft_printf
-*/
-
-# define FD			1
-# define BUFFER		32
-
-typedef struct s_struct
-{
-	char			fl_left;
-	char			fl_zero;
-	char			fl_sign;
-	char			fl_hash;
-	int				width;
-	int				precision;
-	char			type;
-
-	unsigned int	chars_printed;
-}					t_struct;
-
-void				struct_initialization(t_struct *pf);
-int					get_max(int a, int b);
-int					get_min(int a, int b);
-
-int					prefix_handler(char *prefix,
-						uintmax_t num, t_struct *pf, int base);
-void				ft_itoa_base(char **pbuf,
-						uintmax_t num, t_struct *pf, int base);
-void				specs_handler(t_struct *pf, char *prefix, int *num_len);
-void				print_number(uintmax_t num, t_struct *pf, int base);
-
-void				print_c(t_struct *pf, va_list *ap);
-void				print_s(t_struct *pf, va_list *ap);
-
-void				print_d(t_struct *pf, va_list *ap);
-void				print_u(t_struct *pf, va_list *ap);
-void				print_p(t_struct *pf, va_list *ap);
-void				print_x(t_struct *pf, va_list *ap);
-void				print_ob(t_struct *pf, va_list *ap);
-
-void				parse_flags(t_struct *pf, char **fmt);
-void				parse_width(t_struct *pf, char **fmt, va_list *ap);
-void				parse_precision(t_struct *pf, char **fmt, va_list *ap);
-int					specs_parser(t_struct *pf, char **fmt, va_list *ap);
-int					types_processing(t_struct *pf, va_list *ap);
-
-int					ft_printf(const char *format, ...);
 
 #endif

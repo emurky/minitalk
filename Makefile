@@ -2,8 +2,6 @@ SRCSDIR				= ./sources
 OBJSDIR				= ./objs
 DEPSDIR				= ./deps
 
-# SRCS				= $(addprefix $(SRCSDIR)/, 
-
 SERVER				= server
 S_SRCS				= server.c
 S_OBJS				= $(S_SRCS:.c=.o)
@@ -65,7 +63,8 @@ libft_re:
 # ******************************************** #
 
 sc:
-	rm -rf *.o *.a */*.o */*.a */*/*.o */*/*.a */*.d *.d */*.d */*/*.d 'server '* 'client '* server client
+	rm -rf *.o *.a */*.o */*.a */*/*.o */*/*.a */*.d *.d */*.d */*/*.d
+	rm -rf 'server '* 'client '* server client
 
 .PHONY:				all clean fclean re bonus \
 					libft libft_clean libft_fclean libft_re \

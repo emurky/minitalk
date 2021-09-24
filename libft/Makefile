@@ -1,16 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: emurky <emurky@student.21-school.ru>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/11/02 18:08:11 by emurky            #+#    #+#              #
-#    Updated: 2021/09/24 01:25:42 by emurky           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-PRINTF_DIR		= ./ft_printf
 LIST_DIR		= ./list_functions
 
 SRCS			= \
@@ -80,7 +67,7 @@ NAME 			= libft.a
 CC				= gcc
 RM				= rm -f
 AR				= ar -rcs
-CFLAGS			= -Wall -Wextra -Werror -I. -g -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -I. -O2 #-g -fsanitize=address
 CPPFLAGS		= -MMD
 
 all:			$(NAME)
